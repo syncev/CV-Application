@@ -1,36 +1,49 @@
-import './App.css'
-import GeneralInfo from './components/generalInfo'
-import EducationExp from './components/educationExp'
-import Experience from './components/Experience'
-import { useEffect, useState } from 'react'
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Routes,
+  useNavigate,
+  useLocation
+} from "react-router-dom";
+import Processed from "./Pages/Processed.jsx";
+import CVForm from "./Pages/CVForm";
+import About from "./Pages/About";
+import { useEffect, useState } from "react";
+
+function Home() {
+  return (
+    <div>
+      <h1>CV Generator</h1>
+      <p>
+        This CV Generator helps you make a nice CV with different styles, just
+        go to the next section and fill the spaces with the info you want in
+        your CV.
+      </p>
+      <button><Link to="/CVForm">Get Started</Link></button>
+    </div>
+  );
+}
 
 function App() {
-const [formData, setFormData] =useState({
-  generalInfo : {},
-  educationExp : {},
-  experience : {}
-  
-})
-
-const handleFormSubmit = (event) => {
-  event.preventDefault();
-  console.log(formData)
-}
 
   return (
-    <>
-      <h1>CV Generator</h1>
-      
-    <form onSubmit={handleFormSubmit}>
-      <GeneralInfo onDataChange={(data) => setFormData((prevData) => ({ ...prevData, generalInfo: data}))}/>
-      <EducationExp  onDataChange={(data) => setFormData((prevData) => ({ ...prevData, educationExp: data}))}/>
-      <Experience  onDataChange={(data) => setFormData((prevData) => ({ ...prevData, experience: data}))}/>
+    <Router>
+      <Link to="/">Home</Link>
+      <Link to="/About">About</Link>
 
-      <button type='submit'>Generate CV</button>
-    </form>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/CVForm" element={<CVForm />} />
+        <Route path="/Processed" element={<Processed />} />
+        <Route path="/About" element={<About/>}/>
+      </Routes>
+
       
-    </>
-  )
+      
+    </Router>
+  );
 }
 
-export default App
+export default App;
